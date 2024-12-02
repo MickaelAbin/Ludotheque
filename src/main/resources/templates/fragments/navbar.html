@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="bg-blue-500 p-4 text-white">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold">Ma Ludotheque</a>
+            <div>
+                <a href="/" class="mr-4 hover:underline">Accueil</a>
+                <a href="/jeux" class="mr-4 hover:underline">Jeux</a>
+<!--                <a href="/clients" class="mr-4 hover:underline">Clients</a>-->
+            </div>
+        </div>
+    </nav>
+</div>
+</body>
+</html>
