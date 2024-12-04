@@ -27,3 +27,14 @@ CREATE TABLE IF NOT EXISTS jeux (
     age_mini INTEGER NOT NULL,
     duree INTEGER NOT NULL
 );
+CREATE TABLE jeu_genre (
+    id_jeu INTEGER NOT NULL,
+    id_genre INTEGER NOT NULL,
+    PRIMARY KEY (id_jeu, id_genre),
+    FOREIGN KEY (id_jeu) REFERENCES jeux(id_jeu),
+    FOREIGN KEY (id_genre) REFERENCES genre(id_genre)
+);
+CREATE TABLE IF NOT EXISTS genre (
+    id_genre SERIAL PRIMARY KEY,
+    libelle VARCHAR(100) NOT NULL
+);

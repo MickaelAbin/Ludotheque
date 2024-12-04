@@ -1,10 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Détails du jeu</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-$END$
+<body class="bg-gray-100 p-6">
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Détails du jeu</h1>
+    <div class="space-y-4">
+        <p><span class="font-semibold">Nom :</span> <span th:text="${jeu.titre}"></span></p>
+        <p><span class="font-semibold">Référence :</span> <span th:text="${jeu.reference}"></span></p>
+        <p><span class="font-semibold">Description :</span> <span th:text="${jeu.description}"></span></p>
+        <p><span class="font-semibold">Tarif journée :</span> <span th:text="${jeu.tarif_journée}"></span></p>
+        <p><span class="font-semibold">Âge minimum :</span> <span th:text="${jeu.age_mini}"></span></p>
+        <p><span class="font-semibold">Durée :</span> <span th:text="${jeu.duree}"></span></p>
+        <p>
+            <span class="font-semibold">Genres :</span>
+        <ul>
+            <li th:each="genre : ${jeu.genres}">
+                <span th:text="${genre.libelle}"></span>
+            </li>
+        </ul>
+        </p>
+    </div>
+    <a th:href="@{/jeux}" class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Retour à la liste des jeux
+    </a>
+    <form th:action="@{/jeux/{id}/suppression (id=${jeu.no_jeu})}" method="get" class="inline-block mt-6">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Supprimer le jeu
+        </button>
+    </form>
+    <a th:href="@{/jeux/{id}/edition (id=${jeu.no_jeu})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Modifier le jeu
+    </a>
+</div>
 </body>
 </html>

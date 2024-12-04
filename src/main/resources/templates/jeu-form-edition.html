@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Créer Jeu</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-$END$
+<body class="bg-gray-100 p-6">
+
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Modifier Jeu</h1>
+
+    <!-- Formulaire de création de jeu -->
+    <form th:action="@{/jeux/{id}/edition(id=${jeu.no_jeu})}" method="post" th:object="${jeu}" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label for="titre" class="text-lg font-semibold mb-2">Titre :</label>
+                <input type="text" th:field="*{titre}" id="titre" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label for="reference" class="text-lg font-semibold mb-2">Référence :</label>
+                <input type="number" th:field="*{reference}" id="reference" class="border rounded-lg p-2">
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label for="description" class="text-lg font-semibold mb-2">Description :</label>
+                <input type="text" th:field="*{description}" id="description" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label for="tarif_jour" class="text-lg font-semibold mb-2">Tarif journée :</label>
+                <input type="number" th:field="*{tarif_journée}" id="tarif_jour" class="border rounded-lg p-2">
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label for="age_mini" class="text-lg font-semibold mb-2">Âge minimum :</label>
+                <input type="number" th:field="*{age_mini}" id="age_mini" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label for="duree" class="text-lg font-semibold mb-2">Durée :</label>
+                <input type="number" th:field="*{duree}" id="duree" class="border rounded-lg p-2">
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <label for="genres" class="text-lg font-semibold mb-2">Genres :</label>
+            <select th:field="*{genres}" id="genres" multiple="multiple" class="border rounded-lg p-2">
+                <option th:each="genre : ${genres}" th:value="${genre.no_genre}" th:text="${genre.libelle}"></option>
+            </select>
+        </div>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Valider</button>
+    </form>
+
+</div>
 </body>
 </html>

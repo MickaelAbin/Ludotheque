@@ -1,10 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vignettes Cliquables</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-$END$
+<body class="bg-gray-100 p-6">
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+<div class="container mx-auto mt-20"> <!-- Ajout de mt-8 pour l'espace sous la navbar -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8"> <!-- Augmenté le gap pour plus d'espace entre les vignettes -->
+        <!-- Vignette Clients -->
+        <a href="/clients" class="block p-10 bg-white rounded-lg shadow-lg border-2 border-gray-200 hover:bg-blue-500 hover:text-white transition duration-300">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold">Clients</h2> <!-- Augmenté la taille du texte -->
+            </div>
+        </a>
+        <!-- Vignette Jeux -->
+        <a href="/jeux" class="block p-10 bg-white rounded-lg shadow-lg border-2 border-gray-200 hover:bg-blue-500 hover:text-white transition duration-300">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold">Jeux</h2> <!-- Augmenté la taille du texte -->
+            </div>
+        </a>
+        <!-- Vignette Locations -->
+        <a href="/locations" class="block p-10 bg-white rounded-lg shadow-lg border-2 border-gray-200 hover:bg-blue-500 hover:text-white transition duration-300">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold">Locations</h2> <!-- Augmenté la taille du texte -->
+            </div>
+        </a>
+    </div>
+</div>
 </body>
 </html>
+
+

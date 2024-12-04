@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Détails du Client</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-$END$
+<body class="bg-gray-100 p-6">
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Détails du Client</h1>
+    <div class="space-y-4">
+        <p><span class="font-semibold">Nom :</span> <span th:text="${client.nom}"></span></p>
+        <p><span class="font-semibold">Prénom :</span> <span th:text="${client.prenom}"></span></p>
+        <p><span class="font-semibold">Téléphone :</span> <span th:text="${client.telephone}"></span></p>
+        <p><span class="font-semibold">Email :</span> <span th:text="${client.email}"></span></p>
+        <p><span class="font-semibold">Rue :</span> <span th:text="${client.rue}"></span></p>
+        <p><span class="font-semibold">Code Postal :</span> <span th:text="${client.codePostal}"></span></p>
+        <p><span class="font-semibold">Ville :</span> <span th:text="${client.ville}"></span></p>
+    </div>
+    <a th:href="@{/clients}" class="inline-block mt-6 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Retour à la liste des clients
+    </a>
+    <form th:action="@{/clients/delete/{id}(id=${client.id})}" method="get" class="inline-block mt-6">
+        <input type="hidden" name="_method" value="delete"/>
+        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+            Supprimer le client
+        </button>
+    </form>
+    <a th:href="@{/clients/modif/{id}(id=${client.id})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+        Modifier le client
+    </a>
+</div>
 </body>
 </html>

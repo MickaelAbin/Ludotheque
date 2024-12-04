@@ -1,2 +1,6 @@
-package fr.eni.ludotheque.dal;public interface GenreRepository {
+package fr.eni.ludotheque.dal;
+
+import fr.eni.ludotheque.bo.Genre;
+
+public interface GenreRepository extends CrudRepository<Genre> {
 }
