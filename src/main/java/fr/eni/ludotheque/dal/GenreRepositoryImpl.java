@@ -17,7 +17,7 @@ public class GenreRepositoryImpl implements GenreRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
     @Override
-    public void ajouter(Genre entity) {
+    public void ajouter(Genre entity, int jeuId) {
 
     }
 

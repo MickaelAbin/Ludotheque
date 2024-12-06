@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer Exemplaire</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+<!-- Vérification de l'insertion du fragment de la barre de navigation -->
+<div th:insert="~{fragments/navbar :: navbar}"></div>
+
+<div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
+    <h1 class="text-3xl font-bold mb-6 text-blue-600">Créer Jeu</h1>
+
+    <!-- Formulaire de création de exemplaire -->
+    <form th:action="@{/exemplaires/{id}/creer(id=${idjeu})}" method="post" th:object="${exemplaire}" class="space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col">
+                <label for="codebarre" class="text-lg font-semibold mb-2">Code barre :</label>
+                <input type="number" th:field="*{codebarre}" id="codebarre" class="border rounded-lg p-2">
+            </div>
+            <div class="flex flex-col">
+                <label for="louable" class="text-lg font-semibold mb-2">Louable :</label>
+                <input type="checkbox" th:field="*{louable}" id="louable" class="border rounded-lg p-2">
+            </div>
+        </div>
+
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Valider</button>
+    </form>
+
+    <!-- Lien de retour à la liste des jeux -->
+    <a th:href="@{/jeux/{id}/detail(exemplaire.idjeu)}" class="inline-block mt-6 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded">
+        Retour au jeu
+    </a>
+</div>
+</body>
+</html>

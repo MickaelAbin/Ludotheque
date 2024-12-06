@@ -38,3 +38,11 @@ CREATE TABLE IF NOT EXISTS genre (
     id_genre SERIAL PRIMARY KEY,
     libelle VARCHAR(100) NOT NULL
 );
+-- Création de la table Exemplaire_Jeu
+CREATE TABLE IF NOT EXISTS exemplaire_jeu (
+    no_exemplaire SERIAL PRIMARY KEY,
+    code_barre VARCHAR(100) NOT NULL,
+    louable BOOLEAN NOT NULL DEFAULT TRUE,
+    id_jeu INTEGER NOT NULL,
+    FOREIGN KEY (id_jeu) REFERENCES jeux(id_jeu) ON DELETE CASCADE
+    );

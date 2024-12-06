@@ -2,6 +2,7 @@ package fr.eni.ludotheque.Controllers;
 
 import fr.eni.ludotheque.bll.ClientService;
 import fr.eni.ludotheque.bo.Client;
+import fr.eni.ludotheque.exceptions.ClientNotFound;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class ClientController {
         return "clients";
     }
     @GetMapping("/detailClient/{id}")
-    public String  detailClient(@PathVariable("id")int id, Model model){
+    public String  detailClient(@PathVariable("id")int id, Model model) throws ClientNotFound {
         System.out.println("ID passé à la méthode: " + id);
 
     Client client = clientService.findById(id);
@@ -64,7 +65,7 @@ public class ClientController {
         return "redirect:/clients";
     }
     @GetMapping("/clients/modif/{id}")
-    public String modifClient(@PathVariable int id, Model model) {
+    public String modifClient(@PathVariable int id, Model model) throws ClientNotFound {
         model.addAttribute("client",clientService.findById(id));
         return "form-modif-client";
     }

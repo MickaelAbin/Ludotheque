@@ -2,6 +2,7 @@ package fr.eni.ludotheque.bll;
 
 import fr.eni.ludotheque.bo.Client;
 import fr.eni.ludotheque.dal.ClientRepository;
+import fr.eni.ludotheque.exceptions.ClientNotFound;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +31,9 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client findById(int id){
-        return clientRepo.findById(id).orElse(null);
+    public Client findById(int id) throws ClientNotFound {
+        return clientRepo.findById(id)
+                .orElseThrow(() -> new ClientNotFound("Client not found with ID: " + id));
     }
 
     @Override

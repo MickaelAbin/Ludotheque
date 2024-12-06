@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ClientRepository {
 
-    public void ajouterClient(Client personne);
+    public void ajouterClient(Client client);
 
     public void update(Client client);
 

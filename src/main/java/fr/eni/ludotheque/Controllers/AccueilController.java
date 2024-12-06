@@ -26,7 +26,7 @@ public class AccueilController {
         c.setTelephone("le telephone");
         c.setEmail("le email");
         c.setRue("la rue");
-        c.setCodePostal(1234);
+        c.setCodePostal("1234");
         c.setVille("la ville");
         return c;
     }

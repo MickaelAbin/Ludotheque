@@ -1,7 +1,9 @@
 package fr.eni.ludotheque.Controllers;
 
+import fr.eni.ludotheque.bll.ExemplaireService;
 import fr.eni.ludotheque.bll.GenreService;
 import fr.eni.ludotheque.bll.JeuService;
+import fr.eni.ludotheque.bo.Exemplaire;
 import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.bo.Jeu;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,14 @@ public class JeuController {
     private JeuService jeuService;
     private GenreService genreService;
 
+    private ExemplaireService exemplaireService;
+
     @Autowired
-    public JeuController(JeuService jeuService,GenreService genreService) {
+    public JeuController(JeuService jeuService, GenreService genreService, ExemplaireService exemplaireService) {
         super();
         this.jeuService = jeuService;
         this.genreService = genreService;
+        this.exemplaireService = exemplaireService;
     }
 
     @GetMapping("/creer")
@@ -56,6 +61,8 @@ public String afficherJeu(Model model) {
     @GetMapping("/{id}/detail")
     public String detailJeu(@PathVariable int id,Model model) {
         model.addAttribute("jeu", jeuService.findById(id));
+        List<Exemplaire> exemplaires = exemplaireService.findByJeuId(id);
+        model.addAttribute("exemplaires", exemplaires);
         System.out.println(jeuService.findById(id));
         return "jeu-detail";
     }

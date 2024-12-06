@@ -63,7 +63,7 @@ public class ClientRepositoryImpl implements ClientRepository {
             client.setId(rs.getInt("id_client")); // Ajoute cette ligne pour mapper l'ID
             client.setNom(rs.getString("nom"));
             client.setPrenom(rs.getString("prenom"));
-            client.setCodePostal(rs.getInt("cp"));
+            client.setCodePostal(rs.getString("cp"));
             client.setVille(rs.getString("ville"));
             client.setRue(rs.getString("rue"));
             client.setTelephone(rs.getString("telephone_perso"));

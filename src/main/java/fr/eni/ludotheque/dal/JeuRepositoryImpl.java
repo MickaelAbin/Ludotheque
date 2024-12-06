@@ -2,6 +2,8 @@ package fr.eni.ludotheque.dal;
 
 import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.bo.Jeu;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -14,25 +16,32 @@ import java.util.Optional;
 
 @Repository
 public class JeuRepositoryImpl implements JeuRepository {
+    Logger logger = LoggerFactory.getLogger(JeuRepositoryImpl.class);
 
     private final JdbcTemplate jdbcTemplate;
+    private final ExemplaireRepositoryImpl exemplaireRepository;
 
-    public JeuRepositoryImpl(JdbcTemplate jdbcTemplate) {
+    public JeuRepositoryImpl(JdbcTemplate jdbcTemplate, ExemplaireRepositoryImpl exemplaireRepository) {
         this.jdbcTemplate = jdbcTemplate;
+        this.exemplaireRepository = exemplaireRepository;
     }
+
 
     @Override
     public void ajouterJeu(Jeu jeu) {
+        logger.debug("avant insert into jeux...");
         String sql = "INSERT INTO jeux (titre, reference, description, tarif_jour, age_mini, duree) VALUES (?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, jeu.getTitre(), jeu.getReference(), jeu.getDescription(), jeu.getTarif_journée(), jeu.getAge_mini(), jeu.getDuree());
         // Récupérer l'id généré du jeu
         int jeuId = jdbcTemplate.queryForObject("SELECT lastval()", Integer.class);
         jeu.setNo_jeu(jeuId);
 
+        logger.debug("avant insert into jeux_genres...");
         // Insérer les genres associés
         for (Genre genre : jeu.getGenres()) {
             String genreSql = "INSERT INTO jeu_genre (id_jeu, id_genre) VALUES (?, ?)";
             jdbcTemplate.update(genreSql, jeuId, genre.getNo_genre());
+            logger.debug("après insert into jeux_genres...");
         }
     }
 
@@ -58,7 +67,9 @@ public class JeuRepositoryImpl implements JeuRepository {
                 "FROM jeux j " +
                 "LEFT JOIN jeu_genre jg ON j.id_jeu = jg.id_jeu " +
                 "LEFT JOIN genre g ON jg.id_genre = g.id_genre";
+        logger.debug("trouver les jeux...");
         return jdbcTemplate.query(sql, new JeuRowMapper());
+
     }
 
     @Override

@@ -1,6 +1,7 @@
 package fr.eni.ludotheque.bll;
 
 import fr.eni.ludotheque.bo.Client;
+import fr.eni.ludotheque.exceptions.ClientNotFound;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public interface ClientService {
 
     void update(Client client);
 
-    Client findById(int id);
+    Client findById(int id) throws ClientNotFound;
 
     List<Client> findAll();
 

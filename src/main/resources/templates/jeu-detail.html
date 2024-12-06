@@ -38,5 +38,24 @@
         Modifier le jeu
     </a>
 </div>
+<h2 class="text-2xl font-bold mb-4">Liste des Exemplaires :</h2>
+<table class="min-w-full bg-white">
+    <thead> <tr>
+        <th class="py-2">Numéro</th>
+        <th class="py-2">Code Barre</th>
+        <th class="py-2">Louable</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="exemplaire : ${exemplaires}">
+        <td class="border px-4 py-2 text-center" th:text="${exemplaire.idexemplaire}"></td>
+        <td class="border px-4 py-2 text-center" th:text="${exemplaire.codebarre}"></td>
+        <td class="border px-4 py-2 text-center" th:text="${exemplaire.louable ? 'Oui' : 'Non'}"></td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/exemplaires/{id}/creer (id=${jeu.no_jeu})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+    Ajouter un exemplaire
+</a>
 </body>
 </html>
