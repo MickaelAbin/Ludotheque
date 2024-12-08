@@ -1,5 +1,9 @@
 package fr.eni.ludotheque.bo;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -8,15 +12,15 @@ public class Jeu {
     private int no_jeu;
     private String titre;
     private int reference;
+    @NotBlank
     private String description;
     private int tarif_journée;
     private int age_mini;
     private int duree;
-
+    @NotEmpty(message = "Veuillez sélectionner au moins un genre")
     private List<Genre> genres;
 
     private List<Exemplaire> exemplaires;
-
 
 
     public Jeu() {

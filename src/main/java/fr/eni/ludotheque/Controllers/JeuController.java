@@ -6,9 +6,11 @@ import fr.eni.ludotheque.bll.JeuService;
 import fr.eni.ludotheque.bo.Exemplaire;
 import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.bo.Jeu;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,14 +42,11 @@ public class JeuController {
         return "jeu-form-creation";
     }
     @PostMapping("/creer")
-    public String creerJeu( @ModelAttribute Jeu jeu, @RequestParam List<Integer> genres) {
-        System.out.println("genres sélectionnés : " + genres);
-        List<Genre> genreList = genres.stream()
-                .map(genreService::findById)
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .toList();
-        jeu.setGenres(genreList);
+    public String creerJeu(@Valid @ModelAttribute Jeu jeu, BindingResult resultat,Model model) {
+if(resultat.hasErrors()) {
+    model.addAttribute("genres", genreService.findAll());
+    return "jeu-form-creation";
+}
         jeuService.ajouter(jeu);
         System.out.println(jeu);
         return "redirect:/jeux";

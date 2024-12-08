@@ -6,7 +6,6 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 p-6">
-<!-- Vérification de l'insertion du fragment de la barre de navigation -->
 <div th:insert="~{fragments/navbar :: navbar}"></div>
 
 <div class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-8">
@@ -18,30 +17,36 @@
             <div class="flex flex-col">
                 <label for="titre" class="text-lg font-semibold mb-2">Titre :</label>
                 <input type="text" th:field="*{titre}" id="titre" class="border rounded-lg p-2">
+                <p th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}" class="text-red-500 text-sm"></p>
             </div>
             <div class="flex flex-col">
                 <label for="reference" class="text-lg font-semibold mb-2">Référence :</label>
                 <input type="number" th:field="*{reference}" id="reference" class="border rounded-lg p-2">
+                <p th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}" class="text-red-500 text-sm"></p>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col">
                 <label for="description" class="text-lg font-semibold mb-2">Description :</label>
                 <input type="text" th:field="*{description}" id="description" class="border rounded-lg p-2">
+                <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-red-500 text-sm"></p>
             </div>
             <div class="flex flex-col">
                 <label for="tarif_jour" class="text-lg font-semibold mb-2">Tarif journée :</label>
                 <input type="number" th:field="*{tarif_journée}" id="tarif_jour" class="border rounded-lg p-2">
+                <p th:if="${#fields.hasErrors('tarif_journée')}" th:errors="*{tarif_journée}" class="text-red-500 text-sm"></p>
             </div>
         </div>
         <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col">
                 <label for="age_mini" class="text-lg font-semibold mb-2">Âge minimum :</label>
                 <input type="number" th:field="*{age_mini}" id="age_mini" class="border rounded-lg p-2">
+                <p th:if="${#fields.hasErrors('age_mini')}" th:errors="*{age_mini}" class="text-red-500 text-sm"></p>
             </div>
             <div class="flex flex-col">
                 <label for="duree" class="text-lg font-semibold mb-2">Durée :</label>
                 <input type="number" th:field="*{duree}" id="duree" class="border rounded-lg p-2">
+                <p th:if="${#fields.hasErrors('duree')}" th:errors="*{duree}" class="text-red-500 text-sm"></p>
             </div>
         </div>
         <div class="flex flex-col">
@@ -49,6 +54,11 @@
             <select th:field="*{genres}" id="genres" multiple="multiple" class="border rounded-lg p-2">
                 <option th:each="genre : ${genres}" th:value="${genre.no_genre}" th:text="${genre.libelle}"></option>
             </select>
+            <div style="color: red;" th:if="${#fields.hasErrors('genres')}">
+                <ul>
+                    <li th:each="erreur: ${#fields.errors('genres')}" th:text="${erreur}"></li>
+                </ul>
+            </div>
         </div>
         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Valider</button>
     </form>
