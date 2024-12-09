@@ -20,7 +20,7 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.csrf().disable().authorizeHttpRequests(auth ->{
+        return http.authorizeHttpRequests(auth ->{
             auth.requestMatchers("/").permitAll();
             auth.anyRequest().authenticated();
         } ).formLogin(Customizer.withDefaults()).build();

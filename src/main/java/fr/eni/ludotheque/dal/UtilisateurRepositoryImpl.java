@@ -1,6 +1,8 @@
 package fr.eni.ludotheque.dal;
 
 import fr.eni.ludotheque.bo.Utilisateur;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -13,7 +15,7 @@ import java.util.Optional;
 @Repository
 public class UtilisateurRepositoryImpl implements UtilisateurRepository {
 
-
+    Logger logger = LoggerFactory.getLogger(UtilisateurRepositoryImpl.class);
     private final JdbcTemplate jdbcTemplate;
 
     public UtilisateurRepositoryImpl(JdbcTemplate jdbcTemplate) {
@@ -23,11 +25,13 @@ public class UtilisateurRepositoryImpl implements UtilisateurRepository {
     public Utilisateur findByMailPro(String mailPro) {
         String sql = "SELECT * FROM Utilisateur WHERE mailpro = ?";
         List<Utilisateur> utilisateurs = jdbcTemplate.query(sql, new Object[]{mailPro}, new UtilisateurRowMapper());
-
         if (utilisateurs.isEmpty()) {
+            logger.debug("Aucun utilisateur trouvé pour l'email: {}", mailPro);
             return null;
         } else {
-            return utilisateurs.get(0);
+            Utilisateur utilisateur = utilisateurs.get(0);
+            logger.debug("Utilisateur trouvé pour l'email {}: {}", mailPro, utilisateur);
+            return utilisateur;
         }
     }
 

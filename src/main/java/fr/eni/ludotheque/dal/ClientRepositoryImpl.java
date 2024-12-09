@@ -1,6 +1,8 @@
 package fr.eni.ludotheque.dal;
 
 import fr.eni.ludotheque.bo.Client;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;

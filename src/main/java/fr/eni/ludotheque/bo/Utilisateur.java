@@ -1,7 +1,5 @@
 package fr.eni.ludotheque.bo;
 
-import java.util.Objects;
-
 public class Utilisateur {
     private int id;
     private String mailPro;
@@ -60,16 +58,4 @@ public class Utilisateur {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Utilisateur that = (Utilisateur) o;
-        return id == that.id && Objects.equals(mailPro, that.mailPro) && Objects.equals(mdp, that.mdp) && Objects.equals(userRole, that.userRole);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, mailPro, mdp, userRole);
-    }
 }
