@@ -4,6 +4,8 @@ DROP TABLE IF EXISTS jeu_genre;
 DROP TABLE IF EXISTS genre;
 DROP TABLE IF EXISTS jeux;
 DROP TABLE IF EXISTS client;
+DROP TABLE IF EXISTS utilisateur;
+
 
 
 
@@ -53,3 +55,9 @@ CREATE TABLE IF NOT EXISTS exemplaire_jeu (
     id_jeu INTEGER NOT NULL,
     FOREIGN KEY (id_jeu) REFERENCES jeux(id_jeu) ON DELETE CASCADE
     );
+-- Création de la table Utilisateurs
+CREATE TABLE IF NOT EXISTS Utilisateur (
+    id_user SERIAL PRIMARY KEY,
+    mailpro VARCHAR(100) NOT NULL,
+    mdp VARCHAR(250) NOT NULL DEFAULT '$2y$10$.qkbukzzX21D.bqbI.B2R.tvWP90o/Y16QRWVLodw51BHft7ZWbc.',
+    user_role VARCHAR(250) NOT NULL DEFAULT 'USER');

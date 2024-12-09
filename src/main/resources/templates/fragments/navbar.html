@@ -8,11 +8,15 @@
     <nav class="bg-blue-500 p-4 text-white">
         <div class="container mx-auto flex justify-between items-center">
             <a href="/" class="text-2xl font-bold">Ma Ludotheque</a>
-            <div>
+            <div class="flex items-center">
                 <a href="/" class="mr-4 hover:underline">Accueil</a>
                 <a href="/clients" class="mr-4 hover:underline">Clients</a>
                 <a href="/jeux" class="mr-4 hover:underline">Jeux</a>
-<!--                <a href="/clients" class="mr-4 hover:underline">Clients</a>-->
+                <form th:action="@{/logout}" method="post" class="inline">
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Sign Out
+                    </button>
+                </form>
             </div>
         </div>
     </nav>

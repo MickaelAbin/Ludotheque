@@ -35,3 +35,14 @@ VALUES
     (5, 5); -- Azul est de genre Familial et Jeu de tuiles
 
 
+INSERT INTO Utilisateur (mailpro) VALUES
+('abin@gmail.com'),
+('bob.jones@company.com'),
+('carol.brown@company.com'),
+('dave.white@company.com'),
+('eve.johnson@company.com'),
+('frank.miller@company.com'),
+('grace.davis@company.com'),
+('henry.wilson@company.com'),
+('irene.moore@company.com'),
+('jack.taylor@company.com');

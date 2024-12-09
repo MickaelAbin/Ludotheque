@@ -58,6 +58,7 @@ public class ExemplaireController {
 
             // Mettre à jour le jeu dans la base de données
             jeuService.update(jeu);
+            System.out.println("Jeu mis à jour : " + jeu);
         } else {
             // Gérer le cas où le jeu n'est pas trouvé (optionnel)
             return "redirect:/error";

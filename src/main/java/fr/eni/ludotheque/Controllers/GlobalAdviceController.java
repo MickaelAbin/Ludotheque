@@ -8,16 +8,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 @ControllerAdvice(annotations = Controller.class)
-public class LudothequeAdviceController {
-    @ExceptionHandler(Exception.class)
-    public String handleException(Exception e) {
-        e.printStackTrace();
-        return "erreur";
-    }
+public class GlobalAdviceController {
 
+    @Autowired
+    private UtilisateurService utilisateurService;
+
+    @ModelAttribute("utilisateur")
+    public Utilisateur getUtilisateur() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String utilisateur = auth.getName(); // Récupère le nom d'utilisateur
+        return utilisateurService.findByMailPro(utilisateur);
+    }
 
 }

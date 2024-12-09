@@ -47,7 +47,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="exemplaire : ${exemplaires}">
+    <tr th:each="exemplaire : ${jeu.exemplaires}">
         <td class="border px-4 py-2 text-center" th:text="${exemplaire.idexemplaire}"></td>
         <td class="border px-4 py-2 text-center" th:text="${exemplaire.codebarre}"></td>
         <td class="border px-4 py-2 text-center" th:text="${exemplaire.louable ? 'Oui' : 'Non'}"></td>

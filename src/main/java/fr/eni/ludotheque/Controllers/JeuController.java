@@ -60,8 +60,7 @@ public String afficherJeu(Model model) {
     @GetMapping("/{id}/detail")
     public String detailJeu(@PathVariable int id,Model model) {
         model.addAttribute("jeu", jeuService.findById(id));
-        List<Exemplaire> exemplaires = exemplaireService.findByJeuId(id);
-        model.addAttribute("exemplaires", exemplaires);
+
         System.out.println(jeuService.findById(id));
         return "jeu-detail";
     }

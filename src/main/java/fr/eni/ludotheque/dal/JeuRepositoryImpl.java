@@ -43,6 +43,7 @@ public class JeuRepositoryImpl implements JeuRepository {
             jdbcTemplate.update(genreSql, jeuId, genre.getNo_genre());
             logger.debug("après insert into jeux_genres...");
         }
+
     }
 
     @Override
