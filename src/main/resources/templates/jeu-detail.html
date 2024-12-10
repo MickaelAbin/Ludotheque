@@ -30,11 +30,11 @@
     </a>
     <form th:action="@{/jeux/{id}/suppression (id=${jeu.no_jeu})}" method="get" class="inline-block mt-6">
         <input type="hidden" name="_method" value="delete"/>
-        <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+        <button th:if="${#authorization.expression('hasAnyRole(''ADMIN'')')}" type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
             Supprimer le jeu
         </button>
     </form>
-    <a th:href="@{/jeux/{id}/edition (id=${jeu.no_jeu})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+    <a th:if="${#authorization.expression('hasAnyRole(''ADMIN'')')}" th:href="@{/jeux/{id}/edition (id=${jeu.no_jeu})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
         Modifier le jeu
     </a>
 </div>
@@ -54,7 +54,7 @@
     </tr>
     </tbody>
 </table>
-<a th:href="@{/exemplaires/{id}/creer (id=${jeu.no_jeu})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+<a th:if="${#authorization.expression('hasAnyRole(''ADMIN'')')}"th:href="@{/exemplaires/{id}/creer (id=${jeu.no_jeu})}" class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
     Ajouter un exemplaire
 </a>
 </body>

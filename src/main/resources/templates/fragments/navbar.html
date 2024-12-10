@@ -11,8 +11,10 @@
                 <a href="/" class="text-2xl font-bold">Ma Ludotheque</a>
                 <div class="flex items-center space-x-4">
                     <a href="/" class="hover:underline">Accueil</a>
-                    <a href="/clients" class="hover:underline">Clients</a>
-                    <a href="/jeux" class="hover:underline">Jeux</a>
+                    <a th:if="${#authorization.expression('hasAnyRole(''EMPLOYE'',''ADMIN'')')}"  href="/clients" class="hover:underline">Clients</a>
+
+                    <a  href="/jeux" class="hover:underline">Jeux</a>
+                    <a th:if="${#authorization.expression('hasAnyRole(''EMPLOYE'',''ADMIN'')')}" href="/locations" class="hover:underline">Locations</a>
                 </div>
                 <div class="flex flex-col items-end"> <!-- Flex direction column pour placer les éléments verticalement -->
                     <form th:action="@{/logout}" method="post">
