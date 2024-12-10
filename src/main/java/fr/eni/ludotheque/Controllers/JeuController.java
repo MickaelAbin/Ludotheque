@@ -8,6 +8,7 @@ import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.bo.Jeu;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -66,6 +67,7 @@ public String afficherJeu(Model model) {
     }
 
     @GetMapping("/{id}/edition")
+    @PreAuthorize("hasRole('ADMIN')")
     public String modifierJeu(@PathVariable int id, Model model) {
         model.addAttribute("jeu", jeuService.findById(id));
         model.addAttribute("genres", genreService.findAll());
@@ -73,6 +75,7 @@ public String afficherJeu(Model model) {
     }
 
     @PostMapping("/{id}/edition")
+    @PreAuthorize("hasRole('ADMIN')")
     public String modifierJeu(@PathVariable int id, @ModelAttribute Jeu jeu) {
         jeu.setNo_jeu(id);
         jeuService.update(jeu);
@@ -80,6 +83,7 @@ public String afficherJeu(Model model) {
     }
 
     @GetMapping("/{id}/suppression")
+    @PreAuthorize("hasRole('ADMIN')")
     public String supprimerJeu(@PathVariable int id) {
         jeuService.deleteById(id);
         return "redirect:/jeux";

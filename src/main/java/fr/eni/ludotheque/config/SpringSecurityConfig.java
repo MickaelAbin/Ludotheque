@@ -14,32 +14,40 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.web.SecurityFilterChain;
 
 
-@Configuration
-@EnableWebSecurity
-public class SpringSecurityConfig {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeHttpRequests(auth ->{
-            auth.requestMatchers("/").permitAll();
-            auth.anyRequest().authenticated();
-        } ).formLogin(Customizer.withDefaults()).build();
+
+    @Configuration
+    @EnableWebSecurity
+    public class SpringSecurityConfig {
+
+        @Bean
+        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+            return http.csrf().disable().authorizeHttpRequests(auth ->{
+                auth.requestMatchers("/jeu/creer").hasRole("ADMIN");
+                auth.requestMatchers("/jeu/{id}/edition").hasRole("ADMIN");
+                auth.requestMatchers("/jeu/{id}/suppression").hasRole("ADMIN");
+                auth.requestMatchers("/exemplaires/{id}/creer").hasRole("ADMIN");
+                auth.requestMatchers("/clients").hasAnyRole("EMPLOYE", "ADMIN");
+                auth.requestMatchers("/jeu/{id}/detail").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
+                auth.requestMatchers("/jeux").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
+                auth.requestMatchers("/").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
+                auth.anyRequest().authenticated();
+
+            }).formLogin(Customizer.withDefaults()).build();
+        }
+
+        @Autowired
+        private CustomUserDetailsService customUserDetailsService;
+
+        @Bean
+        public BCryptPasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
+            AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+            authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
+            return authenticationManagerBuilder.build();
+        }
     }
-
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-
-
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-
-        return new BCryptPasswordEncoder();
-//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder);
-        return authenticationManagerBuilder.build();
-    }
-}
