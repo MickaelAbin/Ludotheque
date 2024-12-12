@@ -1,10 +1,13 @@
 -- Suppression de la table si elle existe
-DROP TABLE IF EXISTS exemplaire_jeu;
-DROP TABLE IF EXISTS jeu_genre;
-DROP TABLE IF EXISTS genre;
-DROP TABLE IF EXISTS jeux;
-DROP TABLE IF EXISTS client;
-DROP TABLE IF EXISTS utilisateur;
+
+DROP TABLE   detail_location;
+DROP TABLE  location;
+DROP TABLE  exemplaire_jeu;
+DROP TABLE  jeu_genre;
+DROP TABLE  genre;
+DROP TABLE  jeux;
+DROP TABLE  client;
+DROP TABLE  utilisateur;
 
 
 
@@ -27,7 +30,7 @@ CREATE TABLE IF NOT EXISTS genre (
     libelle VARCHAR(100) NOT NULL
     );
 
--- Création de la table Jeux
+-- Création de la table Jeu
 CREATE TABLE IF NOT EXISTS jeux (
     id_jeu SERIAL PRIMARY KEY,
     titre VARCHAR(100) NOT NULL,
@@ -61,3 +64,23 @@ CREATE TABLE IF NOT EXISTS Utilisateur (
     mailpro VARCHAR(100) NOT NULL,
     mdp VARCHAR(250) NOT NULL DEFAULT '$2y$10$.qkbukzzX21D.bqbI.B2R.tvWP90o/Y16QRWVLodw51BHft7ZWbc.',
     user_role VARCHAR(250) NOT NULL DEFAULT 'UTILISATEUR');
+
+-- Créer la table location
+CREATE TABLE IF NOT EXISTS location (
+    id_location SERIAL PRIMARY KEY,
+    date_debut_location DATE NOT NULL,
+    paye BOOLEAN NOT NULL DEFAULT FALSE,
+    prix_total DECIMAL(10, 2),
+    id_client INT,
+    FOREIGN KEY(id_client) REFERENCES client(id_client) );
+
+-- Créer la table detail_location
+CREATE TABLE IF NOT EXISTS detail_location (
+    no_ligne SERIAL PRIMARY KEY,
+    date_retour DATE,
+    tarif_location DECIMAL(10,2) NOT NULL,
+    id_location INTEGER NOT NULL,
+    FOREIGN KEY (id_location) REFERENCES location(id_location),
+    no_exemplaire INTEGER NOT NULL,
+    FOREIGN KEY (no_exemplaire) REFERENCES exemplaire_jeu(no_exemplaire)
+    );

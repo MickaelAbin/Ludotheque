@@ -36,8 +36,13 @@ public class UtilisateurRepositoryImpl implements UtilisateurRepository {
     }
 
 
-    @Override
+
     public void ajouter(Utilisateur entity, int jeuId) {
+
+    }
+
+    @Override
+    public void ajouter(Utilisateur entity) {
 
     }
 

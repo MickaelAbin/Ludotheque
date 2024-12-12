@@ -17,12 +17,12 @@
         </thead>
         <tbody>
         <tr th:each="client : ${clients}" class="hover:bg-gray-100">
-            <td class="py-2 px-4 border-b"><a th:href="@{/detailClient/{id}(id=${client.id})}" th:text="${client.nom.toUpperCase()}" class="text-blue-500 hover:underline"></a></td>
+            <td class="py-2 px-4 border-b"><a th:href="@{/clients/detail/{id}(id=${client.id})}" th:text="${client.nom.toUpperCase()}" class="text-blue-500 hover:underline"></a></td>
         </tr>
         </tbody>
     </table>
 </div>
-<a th:href="@{/Client/ajout}"  class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+<a th:href="@{/clients/ajout}"  class="inline-block mt-6 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
     Ajouter un client
 </a>
 </body>

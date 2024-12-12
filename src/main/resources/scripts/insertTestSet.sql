@@ -47,3 +47,15 @@ INSERT INTO Utilisateur (mailpro, user_role) VALUES
 ('irene.moore@company.com','UTILISATEUR'),
 ('jack.taylor@company.com','UTILISATEUR');
 
+INSERT INTO exemplaire_jeu (code_barre, louable, id_jeu)
+VALUES
+    ('1234567890', TRUE, 1), -- Pandemic
+    ('2345678901', TRUE, 2), -- Catan
+    ('3456789012', TRUE, 3), -- Carcassonne
+    ('4567890123', TRUE, 4), -- Terraforming Mars
+    ('5678901234', TRUE, 5), -- Azul
+    ('6789012345', TRUE, 1), -- Pandemic (second exemplaire)
+    ('7890123456', TRUE, 2), -- Catan (second exemplaire)
+    ('8901234567', TRUE, 3), -- Carcassonne (second exemplaire)
+    ('9012345678', TRUE, 4), -- Terraforming Mars (second exemplaire)
+    ('0123456789', TRUE, 5); -- Azul (second exemplaire)

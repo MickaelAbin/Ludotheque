@@ -4,6 +4,7 @@ import fr.eni.ludotheque.config.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,19 +24,42 @@ import org.springframework.security.web.SecurityFilterChain;
         @Bean
         public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
             return http.authorizeHttpRequests(auth -> {
+//                        return http.csrf().disable().authorizeHttpRequests(auth ->{
+                // Routes spécifiques d'administration
                 auth.requestMatchers("/jeux/creer").hasRole("ADMIN");
                 auth.requestMatchers("/jeux/{id}/edition").hasRole("ADMIN");
                 auth.requestMatchers("/jeux/{id}/suppression").hasRole("ADMIN");
                 auth.requestMatchers("/exemplaires/{id}/creer").hasRole("ADMIN");
+
+                // Routes des employés et des administrateurs
+                auth.requestMatchers("/clients/ajout").hasAnyRole("EMPLOYE", "ADMIN");
                 auth.requestMatchers("/clients").hasAnyRole("EMPLOYE", "ADMIN");
+                auth.requestMatchers("/clients/delete/**").hasAnyRole("EMPLOYE", "ADMIN");
+                auth.requestMatchers("/clients/modif/**").hasAnyRole("EMPLOYE", "ADMIN");
+
+                // Routes accessibles à tous les rôles
+                auth.requestMatchers("/loations").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
+                auth.requestMatchers("/locations/{id}/ajoutloc").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
+                auth.requestMatchers("/jeux/{id}/detail").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
                 auth.requestMatchers("/jeux/{id}/detail").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
                 auth.requestMatchers("/jeux").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
                 auth.requestMatchers("/chiffrer").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
                 auth.requestMatchers("/").hasAnyRole("EMPLOYE", "ADMIN", "UTILISATEUR");
-                auth.anyRequest().authenticated();
 
+                // Toute autre requête doit être authentifiée
+                auth.anyRequest().authenticated();
             }).formLogin(Customizer.withDefaults()).build();
         }
+//        @Bean
+//        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//            http
+//                    .authorizeRequests()
+//                    .anyRequest().permitAll() // Autorise toutes les requêtes sans restriction
+//                    .and()
+//                    .csrf().disable(); // Désactive la protection CSRF si nécessaire
+//            return http.build();
+//        }
+
         //        @Bean
 //        public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //            return http.authorizeHttpRequests((requests)-> requests

@@ -16,4 +16,5 @@ public interface JeuRepository {
     Optional<Jeu> findById(int id);
 
     void deleteById(int id);
+    public List<Jeu> getJeuxWithExemplaires();
 }

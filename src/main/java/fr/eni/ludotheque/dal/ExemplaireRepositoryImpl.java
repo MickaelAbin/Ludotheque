@@ -28,8 +28,13 @@ public class ExemplaireRepositoryImpl implements ExemplaireRepository {
 
     }
 
-    @Override
+
     public void ajouter(Exemplaire exemplaire, int idjeu) {
+
+    }
+
+    @Override
+    public void ajouter(Exemplaire entity) {
 
     }
 
@@ -40,7 +45,7 @@ public class ExemplaireRepositoryImpl implements ExemplaireRepository {
 
     @Override
     public Optional<Exemplaire> findById(int id) {
-        String sql = "SELECT * FROM exemplaire_jeu WHERE id_jeu = ?";
+        String sql = "SELECT * FROM exemplaire_jeu WHERE no_exemplaire = ?";
         Exemplaire exemplaire = jdbcTemplate.queryForObject(sql, new ExemplaireRowMapper(), id);
         return Optional.ofNullable(exemplaire);
     }

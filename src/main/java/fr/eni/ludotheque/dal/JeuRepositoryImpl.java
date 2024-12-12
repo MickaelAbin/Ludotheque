@@ -1,5 +1,6 @@
 package fr.eni.ludotheque.dal;
 
+import fr.eni.ludotheque.bo.Exemplaire;
 import fr.eni.ludotheque.bo.Genre;
 import fr.eni.ludotheque.bo.Jeu;
 import org.slf4j.Logger;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +75,7 @@ public class JeuRepositoryImpl implements JeuRepository {
 
     }
 
+
     @Override
     public Optional<Jeu> findById(int id) {
         String sql = "SELECT j.id_jeu, j.titre, j.reference, j.description, j.tarif_jour, j.age_mini, j.duree, g.id_genre, g.libelle " +
@@ -91,6 +94,28 @@ public class JeuRepositoryImpl implements JeuRepository {
         String deleteJeuSql = "DELETE FROM jeux WHERE id_jeu = ?";
         jdbcTemplate.update(deleteJeuSql, id);
     }
+    public List<Jeu> getJeuxWithExemplaires() {
+        String sql = "SELECT j.id_jeu, j.titre, e.no_exemplaire, e.code_barre, e.louable " +
+                "FROM jeux j " +
+                "INNER JOIN exemplaire_jeu e ON j.id_jeu = e.id_jeu " +
+                "ORDER BY j.id_jeu, e.no_exemplaire";
+
+        return jdbcTemplate.query(sql, (rs, rowNum) -> {
+            Jeu jeu = new Jeu();
+            jeu.setNo_jeu(rs.getInt("id_jeu"));
+            jeu.setTitre(rs.getString("titre"));
+
+            Exemplaire exemplaire = new Exemplaire();
+            exemplaire.setIdexemplaire(rs.getInt("no_exemplaire"));
+            exemplaire.setCodebarre(rs.getString("code_barre"));
+            exemplaire.setLouable(rs.getBoolean("louable"));
+            exemplaire.setIdjeu(jeu.getNo_jeu());
+
+            jeu.setExemplaires(Collections.singletonList(exemplaire));
+            return jeu;
+        });
+    }
+}
 
     class JeuRowMapper implements RowMapper<Jeu> {
         @Override
@@ -116,4 +141,4 @@ public class JeuRepositoryImpl implements JeuRepository {
             return jeu;
         }
     }
-}
+

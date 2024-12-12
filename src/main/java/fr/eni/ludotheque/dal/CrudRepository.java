@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CrudRepository<T>{
-     void ajouter(T entity, int jeuId);
+     void ajouter(T entity);
 
     public List<T> findAll();
 

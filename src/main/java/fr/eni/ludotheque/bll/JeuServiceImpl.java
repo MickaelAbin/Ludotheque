@@ -22,6 +22,11 @@ public class JeuServiceImpl implements JeuService {
 
 
     @Override
+    public List<Jeu> getJeuxWithExemplaires() {
+        return jeuRepo.getJeuxWithExemplaires();
+    }
+
+    @Override
     public void ajouter(Jeu jeu) { jeuRepo.ajouterJeu(jeu) ;System.out.println("ici service");}
 
     @Override

@@ -5,6 +5,7 @@ import fr.eni.ludotheque.bo.Jeu;
 import java.util.List;
 
 public interface JeuService {
+    public List<Jeu> getJeuxWithExemplaires();
 
     public void ajouter(Jeu jeu);
 
