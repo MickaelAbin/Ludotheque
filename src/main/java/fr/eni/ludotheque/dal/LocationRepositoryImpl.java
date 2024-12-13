@@ -62,16 +62,15 @@ public LocationRepositoryImpl(JdbcTemplate jdbcTemplate) {
         logger.debug("Location ajoutée avec ID=" + newLocationId);
 
         // Insérer les détails de location
-        String detailSql = "INSERT INTO detail_location (id_location, no_exemplaire, no_ligne, tarif_location) VALUES (?, ?, ?, ?)";
+        String detailSql = "INSERT INTO detail_location (id_location, no_exemplaire,tarif_location) VALUES (?, ?, ?)";
 
         for (DetailLocation detail : location.getDetailLocations()) {
-            jdbcTemplate.update(detailSql, newLocationId, detail.getExemplaire().getIdexemplaire(), detail.getNoLigne(), detail.getTarifLocation());
+            jdbcTemplate.update(detailSql, newLocationId, detail.getExemplaire().getIdexemplaire(),  detail.getTarifLocation());
             logger.debug("Détail ajouté - ID Location: " + newLocationId + ", ID Exemplaire: " + detail.getExemplaire().getIdexemplaire());
         }
 
         logger.debug("Fin ajouterLoc - location=" + location);
     }
-
 
 
     class LocationRowMapper implements RowMapper<Location> {

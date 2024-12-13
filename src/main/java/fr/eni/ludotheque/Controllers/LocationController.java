@@ -84,7 +84,7 @@ private ExemplaireService exemplaireService;
             return "form-ajout-location"; // Renvoie au formulaire en cas d'absence d'exemplaire
         }
 
-        // Suppression du calcul du prix total
+
 
         for (String exemplaireId : selectedExemplaires) {
             // Extraire l'ID de l'exemplaire à partir de la chaîne
@@ -98,7 +98,7 @@ private ExemplaireService exemplaireService;
                     Exemplaire exemplaire = exemplaireOptional.get();
                     DetailLocation detailLocation = new DetailLocation();
 
-                    detailLocation.setNoLigne(selectedExemplaires.indexOf(exemplaireId) + 1); // Numéro de ligne
+
                     detailLocation.setExemplaire(exemplaire);
                     detailLocation.setLocation(location);
 
