@@ -61,7 +61,7 @@ private ExemplaireService exemplaireService;
                                   @RequestParam Map<String, String> params,
                                   Model model) {
         logger.info("Tentative d'ajout d'une nouvelle location pour le client ID: {}", id);
-
+        System.out.println("toues les données"+params);
         // Récupérer les exemplaires sélectionnés
         List<String> selectedExemplaires = new ArrayList<>();
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -85,7 +85,7 @@ private ExemplaireService exemplaireService;
         }
 
 
-
+        System.out.println("données recuperer "+selectedExemplaires);
         for (String exemplaireId : selectedExemplaires) {
             // Extraire l'ID de l'exemplaire à partir de la chaîne
             String[] parts = exemplaireId.split("-");
